@@ -1,0 +1,67 @@
+//---------------------------------------------------------------------------
+
+
+#pragma hdrstop
+
+#include "fastbitmap.h"
+rgb24pixel rgb24pixel::fromInt (uint c)
+{
+        rgb24pixel r;
+        r.r = c&0xFF;
+        r.g = (c&0xFF00)>>8;
+        r.b = (c&0xFF0000)>>16;
+        return r;
+}
+rgb24pixel rgb24pixel::fromRGB (byte r, byte g, byte b)
+{
+        rgb24pixel res;
+        res.r=r;
+        res.g=g;
+        res.b=b;
+        return res;
+}
+FastBitmap::FastBitmap()
+{
+        b = 0;
+        pixels = 0;
+}
+FastBitmap::FastBitmap(PBMP src)
+{
+        b=0;
+        pixels = 0;
+        init(src);
+}
+FastBitmap::~FastBitmap()
+{
+        if (pixels)
+                delete[]pixels;
+}
+void FastBitmap::init(PBMP src)
+{
+        src->PixelFormat = pf24bit;
+        b = src;
+        if (pixels)
+                delete[]pixels;
+        pixels = new rgb24pixel*[b->Height];
+        for (int i=0; i<b->Height; i++)
+                pixels[i] = (rgb24pixel*)b->ScanLine[i];
+}
+uint FastBitmap::getPixel(uint left, uint top)
+{
+        if (!pixels)
+                return -1;
+        else
+                return pixels[top][left].toInt();
+}
+void FastBitmap::setPixel(uint left, uint top, uint c)
+{
+        if (!pixels)
+                return;
+        pixels[top][left] = rgb24pixel::fromInt(c);
+}
+
+
+
+//---------------------------------------------------------------------------
+
+#pragma package(smart_init)

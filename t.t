@@ -1,0 +1,10 @@
+#lolka
+popka
+@popochka
+1
+2
+3
+4
+/popochka
+#BOOM
+bam
