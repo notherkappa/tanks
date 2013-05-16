@@ -15,7 +15,7 @@ public:
         void keyUpdate(uint spKey){;}
         void processMessage(IMessage * msg);
         void update(uint t);
-private:
+protected:
         int hp;
         int maxhp;
 };
@@ -30,10 +30,23 @@ public:
         void keyUpdate(uint spKey){;}
         void processMessage(IMessage * msg);
         void update(uint t);
-private:
+protected:
         int hp;
         int maxhp;
         int typeResist, valueResist;
+};
+
+class BoundWall : public GameObject
+{
+public:
+        BoundWall(){type = TYPE_BOUND_WALL;}
+        ~BoundWall(){;}
+        void keyUpdate(uint spKey){;}
+        void processMessage(IMessage * msg){;}
+        void update(uint t){;}
+        IMessage * getSelfAddMessage(){return IMessage::createAddMeMessage(this,false,false,false);}
+protected:
+
 };
 //---------------------------------------------------------------------------
 #endif

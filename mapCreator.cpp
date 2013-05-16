@@ -108,7 +108,7 @@ void __fastcall TForm2::FormClick(TObject *Sender)
                         if (ii==pickedItem-1)
                                 context->Canvas->CopyRect(Rect(cLeft,cTop,cLeft+32, cTop+32),(*i)->Canvas,Rect(0,0,32,32));
                 delete l;
-                map.save("maps\\temp.map");
+                map.save("maps\\temp.map", " 1");
         }
 }
 //---------------------------------------------------------------------------

@@ -13,10 +13,28 @@ public:
         ~CustomPlayerTank();
         CustomPlayerTank(GameManager *mgr, FastBitmap *c, String profile);
 
-        void shoot();
+        virtual void shoot();
 protected:
         int dmgmin, dmgmax, bulletSpeed, bulletType;
         int pen[3];
+};
+class AIRandomMoveTank : public CustomPlayerTank
+{
+public:
+        AIRandomMoveTank(){;}
+        ~AIRandomMoveTank(){delete sprite;}
+        AIRandomMoveTank(GameManager *mgr, FastBitmap *c, String profile);
+        virtual void keyUpdate(uint spKey){;}
+        virtual void processMessage(IMessage * msg);
+        virtual void update(uint t);
+protected:
+        int changeMove();
+        int movingValues[4];
+        int movingValuesSum;
+
+        uint lasttimeChangedMove;
+        uint changeTime;
+        int scoreForKill;
 
 
 };

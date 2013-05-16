@@ -17,10 +17,11 @@ public:
         GameMap(String filename){map.Load(filename);}
 
         void load(String filename){map.Load(filename);}
-        void save(String filename){map.Save(filename);}
+        void save(String filename, String levelName){if (levelName!="") map.Set("name",levelName);map.Save(filename);}
         void addObject(String objectname, int id, int left, int top);
         void removeObject(TRect point);
         void generateObjects(GameManager *gm, FastBitmap* c);
+        String getLevelName(){return map.Get("name");}
 private:
         Defines map;
 

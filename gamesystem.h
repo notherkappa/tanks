@@ -5,6 +5,8 @@
 #include <queue>
 #include "logic.h"
 #include "rendersystem.h"
+#include "stats.h"
+#include "objectDefines.h"
 
 
 #define MSG_MOVE_REQUEST        0x1
@@ -70,10 +72,10 @@ struct IMessage
 
         IMessage * broadcast;
 
-        uint left, top;
+        double left, top;
 
-        uint iValues[8];
-        double dValues[8];
+        uint value;
+        double dValue;
 
         String msg;
 };
@@ -118,6 +120,19 @@ public:
         virtual void update (uint t)=0;
         virtual void render () {;}
         virtual IMessage * getSelfAddMessage(){return IMessage::createAddMeMessage(this);}
+};
+
+class SilentObject : public GameObject
+{
+public:
+        SilentObject(){;}
+        ~SilentObject(){;}
+
+        virtual void processMessage(IMessage *msg){;}
+        virtual void update (uint t){;}
+        virtual void render () {;}
+        virtual void keyUpdate(uint t) {;}
+        virtual IMessage * getSelfAddMessage(){return IMessage::createAddMeMessage(this,false,false,false);}
 };
 
 //---------------------------------------------------------------------------

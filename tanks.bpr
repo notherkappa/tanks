@@ -6,7 +6,7 @@
     <PROJECT value="tanks.exe"/>
     <OBJFILES value="tanks.obj main.obj fastbitmap.obj rendersystem.obj defines.obj logic.obj 
       gamesystem.obj gameobjects.obj filecrypt.obj customTanks.obj 
-      customWalls.obj customBullets.obj mapCreator.obj map.obj"/>
+      customWalls.obj customBullets.obj mapCreator.obj map.obj stats.obj"/>
     <RESFILES value="tanks.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -45,7 +45,7 @@
     <PFLAGS value="-$Y+ -$W -$O- -$A8 -v -JPHNE -M"/>
     <RFLAGS value=""/>
     <AFLAGS value="/mx /w2 /zi"/>
-    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -v"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -w-dup -v"/>
     <OTHERFILES value=""/>
   </OPTIONS>
   <LINKER>
@@ -71,6 +71,7 @@
       <FILE FILENAME="objectDefines.h" FORMNAME="" UNITNAME="objectDefines.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="mapCreator.cpp" FORMNAME="Form2" UNITNAME="mapCreator" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="map.cpp" FORMNAME="" UNITNAME="map" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="stats.cpp" FORMNAME="" UNITNAME="stats" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

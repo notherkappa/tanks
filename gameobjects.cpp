@@ -19,6 +19,11 @@ PlayerTank::PlayerTank(GameManager* mgr, FastBitmap * c)
         memset(arrowsPressed,0,4);
         lasttimeUpdated = ::GetTickCount();
         sprite = SpriteFabric::newSprite("tank_babyboy",c);
+        moveRequested=false;
+
+        UserStats * us = UserStats::getInstance();
+        us->hp = hp;
+        us->maxhp=maxhp;
 }
 
 PlayerTank::~PlayerTank()
@@ -82,7 +87,7 @@ void PlayerTank::update(uint t)
                 sprite->setAnimation("go_left");
         sprite->update();
 
-        TRect r = sprite->getRect();
+        TDoubleRect r = sprite->getDoubleRect();
 
         if (state == PLAYERTANK_STATE_GO_UP)
                 r.top -= speed*timel/1000;
@@ -94,6 +99,7 @@ void PlayerTank::update(uint t)
                 r.left -= speed*timel/1000;
 
         manager->sendMessage(IMessage::createMoveRequestMessage(this,r.left,r.top));
+        moveRequested = true;
         lasttimeUpdated = ::GetTickCount();
 }
 bool PlayerTank::someArrowPressed()
@@ -144,11 +150,19 @@ void PlayerTank::processMessage(IMessage * msg)
                 if (msg->super->type&TYPE_BULLETS)
                 {
                         if(msg->super->team == team)
-                                sprite->setPosition(msg->left,msg->top);
+                        {
+                                if (moveRequested)
+                                {
+                                        sprite->setPosition(msg->left,msg->top);
+                                        moveRequested=false;
+                                }
+                        }
                         else if (msg->super->team != TEAM_PEACEFUL)
                         {
                                 Bullet * b = (Bullet*)msg->super;
                                 hp-=b->getDmg(this,typeResist,valueResist);
+                                UserStats *us = UserStats::getInstance();
+                                us->hp = hp<0?0:hp;
                                 if (hp<0)
                                 {
                                         manager->sendMessage(IMessage::createHideMeMessage(this, false,false,true));
@@ -228,6 +242,14 @@ void Bullet::processMessage(IMessage * msg)
                 {
                         state = BULLET_STATE_DEAD;
                         manager->sendMessage(IMessage::createHideMeMessage(this,false,false,true));
+                }
+                if (msg->super->type&TYPE_TANK)
+                {
+                        if (msg->super->team !=team)
+                        {
+                                state = BULLET_STATE_DEAD;
+                                manager->sendMessage(IMessage::createHideMeMessage(this,false,false,true));
+                        }
                 }
                 break;
         default:

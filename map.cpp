@@ -55,6 +55,13 @@ void GameMap::generateObjects(GameManager *gm, FastBitmap* c)
                                                       StrToInt(map.Get("objects."+name+".top")));
                         gm->sendMessage(toCreate->getSelfAddMessage());
                         break;
+                case AITANK_RANDOM_MOVE:
+                        toCreate= new AIRandomMoveTank(gm,c,"airmtank.cfg");
+                        toCreate->sprite->setPosition(StrToInt(map.Get("objects."+name+".left")),
+                                                      StrToInt(map.Get("objects."+name+".top")));
+                        gm->sendMessage(toCreate->getSelfAddMessage());
+                        break;
+
                 default:
                         break;
                 }

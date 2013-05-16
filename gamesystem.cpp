@@ -24,7 +24,7 @@ IMessage* IMessage::createStatsIncreaseMessage(uint value)
 {
         IMessage *m = new IMessage();
         m->type = MSG_STATS_INCREASE;
-        m->iValues[0] = value;
+        m->value = value;
         return m;
 }
 IMessage* IMessage::createShowMessageMessage(String message)
@@ -134,6 +134,7 @@ void GameManager::processMessages()
         while(!messageQueue.empty())
         {
                 IMessage * msg = messageQueue.front();
+                UserStats * us;
 
                 TRect senderRect;
                 bool isCollision=false;
@@ -153,7 +154,16 @@ void GameManager::processMessages()
                                         break;
                                 }
                         if (!isCollision)
-                                msg->sender->processMessage(IMessage::createMoveRequestMessage(0,msg->left,msg->top));
+                        {
+                                if (senderRect.left<0 || senderRect.left>(768-senderRect.right) || senderRect.top<0 || senderRect.top>(512-senderRect.bottom))
+                                {
+                                        SilentObject boundWall;
+                                        boundWall.type = TYPE_BOUND_WALL;
+                                        msg->sender->processMessage(IMessage::createCollisionMessage(&boundWall,msg->left,msg->top));
+                                }
+                                else
+                                        msg->sender->processMessage(IMessage::createMoveRequestMessage(0,msg->left,msg->top));
+                        }
                         break;
                 case MSG_DESTROY_ME:
                         listenersList.remove(msg->sender);
@@ -202,6 +212,14 @@ void GameManager::processMessages()
                                 renderManager->remove(msg->sender->sprite);
                         if (msg->type & MSG_CL)
                                 collisionList.remove(msg->sender);
+                        break;
+                case MSG_STATS_INCREASE:
+                        us = UserStats::getInstance();
+                        us->scores+=msg->value;
+                        break;
+                case MSG_GAMEOVER:
+                        us = UserStats::getInstance();
+                        us->gameOver=true;
                         break;
                 }
                 messageQueue.pop();

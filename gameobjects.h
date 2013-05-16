@@ -48,6 +48,7 @@ protected:
         uint attackCoolDown;
         uint lasttimeAttack;
         uint lasttimeUpdated;
+        bool moveRequested;
 
         int hp, maxhp;
         int typeResist, valueResist;

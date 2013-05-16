@@ -29,8 +29,8 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
         renderTestMode = false;
 
         PBMP ct = new BMP();
-        ct->Width = ClientWidth;
-        ct->Height = ClientHeight;
+        ct->Width = 768;
+        ct->Height = 512;
         ct->Canvas->Brush->Color = clBtnFace;
         ct->Canvas->FillRect(Rect(0,0,ClientWidth,ClientHeight));
         FastBitmap * fbC = new FastBitmap();
@@ -41,13 +41,13 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormResize(TObject *Sender)
 {
-        SIZE__L = ClientWidth;
+     /*   SIZE__L = ClientWidth;
         SIZE__T = ClientHeight;
         b->Width = SIZE__L;
         b->Height = SIZE__T;
         fb.init(b);
         ts.ct->init(b);
-        gt.rm->setContext(ts.ct,Canvas,SIZE__L,SIZE__T,gt.rm->getColor());
+        gt.rm->setContext(ts.ct,Canvas,SIZE__L,SIZE__T,gt.rm->getColor());    */
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormMouseMove(TObject *Sender, TShiftState Shift,
@@ -205,19 +205,20 @@ void __fastcall TForm1::FormActivate(TObject *Sender)
                 initGame();
                 GTimer->Tag=1;
         }
-        GTimer->Enabled = 1-GTimer->Enabled;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::FormClose(TObject *Sender, TCloseAction &Action)
 {
-//        DeleteFile("sprites\\fbDefines.fabric");
+        DeleteFile("sprites\\fbDefines.fabric");
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
-        Form2->ShowModal();        
+        UserStats * us = UserStats::getInstance();
+        us->scores++;
+        us->print(Label2,Label3,Label1,Label4, ProgressBar1, Label5);
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::initGame()
@@ -228,7 +229,18 @@ void __fastcall TForm1::initGame()
         gt.gm->setRenderManager(gt.rm);
         gt.map.load("maps\\temp.map");
         gt.map.generateObjects(gt.gm,ts.ct);
+        UserStats * us = UserStats::getInstance();
+        us->levelName = gt.map.getLevelName();
+        us->print(Label2,Label3,Label1,Label4, ProgressBar1, Label5);
+        GTimer->Enabled=true;
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TForm1::Timer2Timer(TObject *Sender)
+{
+        UserStats * us = UserStats::getInstance();
+        us->print(Label2,Label3,Label1,Label4, ProgressBar1, Label5);
+}
+//---------------------------------------------------------------------------
 
