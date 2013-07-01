@@ -39,17 +39,6 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
         ts.s.setContext(ts.ct);
 }
 //---------------------------------------------------------------------------
-void __fastcall TForm1::FormResize(TObject *Sender)
-{
-     /*   SIZE__L = ClientWidth;
-        SIZE__T = ClientHeight;
-        b->Width = SIZE__L;
-        b->Height = SIZE__T;
-        fb.init(b);
-        ts.ct->init(b);
-        gt.rm->setContext(ts.ct,Canvas,SIZE__L,SIZE__T,gt.rm->getColor());    */
-}
-//---------------------------------------------------------------------------
 void __fastcall TForm1::FormMouseMove(TObject *Sender, TShiftState Shift,
       int X, int Y)
 {
@@ -64,11 +53,11 @@ void __fastcall TForm1::FormKeyPress(TObject *Sender, char &Key)
                 renderTestMode = 1-renderTestMode;
                 return;
         }
-        else if (Key == VK_E)
+        else if (Key == 'E')
         {
                 Form2->ShowModal();
         }
-        else if (Key == VK_R)
+        else if (Key == 'R')
         {
                 initGame();
         }

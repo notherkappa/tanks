@@ -15,6 +15,7 @@
 #define KB_STATE_WINAPI_FORMAT          0
 #define KB_STATE_BOOLEAN_FORMAT         1
 
+
 typedef unsigned int uint;
 typedef unsigned char byte;
 template <class T> const T& min ( const T& a, const T& b ) {

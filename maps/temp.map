@@ -1,522 +1,95 @@
-#objects.Brick Wall5877117.id
+#objects.Brick Wall:1676152836:1193721.id
 257
-#objects.Brick Wall5877117.left
-32
-#objects.Brick Wall5877117.top
-32
+#objects.Brick Wall:1676152836:1193721.left
+320
+#objects.Brick Wall:1676152836:1193721.top
+128
 #name
  1
-#objects.Brick Wall10865178.id
+#objects.Brick Wall:1676153194:7682875.id
 257
-#objects.Brick Wall10865178.left
-32
-#objects.Brick Wall10865178.top
-64
-#objects.Brick Wall5428823.id
-257
-#objects.Brick Wall5428823.left
-32
-#objects.Brick Wall5428823.top
-96
-#objects.Brick Wall6148339.id
-257
-#objects.Brick Wall6148339.left
-32
-#objects.Brick Wall6148339.top
-128
-#objects.Brick Wall4907982.id
-257
-#objects.Brick Wall4907982.left
-32
-#objects.Brick Wall4907982.top
-160
-#objects.Brick Wall2359068.id
-257
-#objects.Brick Wall2359068.left
-32
-#objects.Brick Wall2359068.top
-192
-#objects.Brick Wall10206748.id
-257
-#objects.Brick Wall10206748.left
-32
-#objects.Brick Wall10206748.top
-224
-#objects.Brick Wall7164777.id
-257
-#objects.Brick Wall7164777.left
-32
-#objects.Brick Wall7164777.top
-256
-#objects.Brick Wall1431693.id
-257
-#objects.Brick Wall1431693.left
-32
-#objects.Brick Wall1431693.top
-288
-#objects.Brick Wall16063348.id
-257
-#objects.Brick Wall16063348.left
-96
-#objects.Brick Wall16063348.top
-288
-#objects.Brick Wall16135993.id
-257
-#objects.Brick Wall16135993.left
-96
-#objects.Brick Wall16135993.top
-288
-#objects.Brick Wall15213390.id
-257
-#objects.Brick Wall15213390.left
-64
-#objects.Brick Wall15213390.top
-288
-#objects.Brick Wall13669418.id
-257
-#objects.Brick Wall13669418.left
-128
-#objects.Brick Wall13669418.top
-288
-#objects.Brick Wall15804313.id
-257
-#objects.Brick Wall15804313.left
-160
-#objects.Brick Wall15804313.top
-288
-#objects.Brick Wall522841.id
-257
-#objects.Brick Wall522841.left
-192
-#objects.Brick Wall522841.top
-288
-#objects.Brick Wall8872112.id
-257
-#objects.Brick Wall8872112.left
-224
-#objects.Brick Wall8872112.top
-288
-#objects.Brick Wall13944570.id
-257
-#objects.Brick Wall13944570.left
-256
-#objects.Brick Wall13944570.top
-288
-#objects.Brick Wall2701320.id
-257
-#objects.Brick Wall2701320.left
-288
-#objects.Brick Wall2701320.top
-288
-#objects.Brick Wall4158052.id
-257
-#objects.Brick Wall4158052.left
+#objects.Brick Wall:1676153194:7682875.left
 320
-#objects.Brick Wall4158052.top
-288
-#objects.Brick Wall2260057.id
+#objects.Brick Wall:1676153194:7682875.top
+128
+#objects.Brick Wall:1676153850:6714806.id
 257
-#objects.Brick Wall2260057.left
-448
-#objects.Brick Wall2260057.top
-288
-#objects.Brick Wall7281265.id
-257
-#objects.Brick Wall7281265.left
+#objects.Brick Wall:1676153850:6714806.left
 480
-#objects.Brick Wall7281265.top
-288
-#objects.Brick Wall9219973.id
+#objects.Brick Wall:1676153850:6714806.top
+128
+#objects.Brick Wall:1676154240:1568643.id
 257
-#objects.Brick Wall9219973.left
-512
-#objects.Brick Wall9219973.top
-288
-#objects.Brick Wall3958994.id
+#objects.Brick Wall:1676154240:1568643.left
+480
+#objects.Brick Wall:1676154240:1568643.top
+128
+#objects.Brick Wall:1676154926:9438336.id
 257
-#objects.Brick Wall3958994.left
-576
-#objects.Brick Wall3958994.top
-288
-#objects.Brick Wall3767139.id
-257
-#objects.Brick Wall3767139.left
-544
-#objects.Brick Wall3767139.top
-288
-#objects.Brick Wall6015818.id
-257
-#objects.Brick Wall6015818.left
-416
-#objects.Brick Wall6015818.top
-288
-#objects.Brick Wall16714322.id
-257
-#objects.Brick Wall16714322.left
+#objects.Brick Wall:1676154926:9438336.left
 384
-#objects.Brick Wall16714322.top
-288
-#objects.Brick Wall10118594.id
+#objects.Brick Wall:1676154926:9438336.top
+128
+#objects.Brick Wall:1676155534:14149060.id
 257
-#objects.Brick Wall10118594.left
+#objects.Brick Wall:1676155534:14149060.left
 352
-#objects.Brick Wall10118594.top
-288
-#objects.Brick Wall10621161.id
+#objects.Brick Wall:1676155534:14149060.top
+32
+#objects.Brick Wall:1676156065:4444475.id
 257
-#objects.Brick Wall10621161.left
-640
-#objects.Brick Wall10621161.top
-288
-#objects.Brick Wall6736376.id
-257
-#objects.Brick Wall6736376.left
-640
-#objects.Brick Wall6736376.top
-288
-#objects.Brick Wall14449859.id
-257
-#objects.Brick Wall14449859.left
+#objects.Brick Wall:1676156065:4444475.left
+448
+#objects.Brick Wall:1676156065:4444475.top
+64
+#objects.Enemy Start:1676158795:9640614.id
+66561
+#objects.Enemy Start:1676158795:9640614.left
+224
+#objects.Enemy Start:1676158795:9640614.top
+64
+#objects.Enemy Start:1676159372:454203.id
+66561
+#objects.Enemy Start:1676159372:454203.left
+160
+#objects.Enemy Start:1676159372:454203.top
+128
+#objects.Enemy Start:1676159918:15695735.id
+66561
+#objects.Enemy Start:1676159918:15695735.left
+96
+#objects.Enemy Start:1676159918:15695735.top
+64
+#objects.Enemy Start:1676160948:5264450.id
+66561
+#objects.Enemy Start:1676160948:5264450.left
+480
+#objects.Enemy Start:1676160948:5264450.top
+0
+#objects.Enemy Start:1676161494:11351591.id
+66561
+#objects.Enemy Start:1676161494:11351591.left
 608
-#objects.Brick Wall14449859.top
-288
-#objects.Brick Wall2091644.id
-257
-#objects.Brick Wall2091644.left
-672
-#objects.Brick Wall2091644.top
-288
-#objects.Brick Wall7038181.id
-257
-#objects.Brick Wall7038181.left
-704
-#objects.Brick Wall7038181.top
-288
-#objects.Brick Wall1308126.id
-257
-#objects.Brick Wall1308126.left
-704
-#objects.Brick Wall1308126.top
-256
-#objects.Brick Wall10560481.id
-257
-#objects.Brick Wall10560481.left
-704
-#objects.Brick Wall10560481.top
-224
-#objects.Brick Wall9812221.id
-257
-#objects.Brick Wall9812221.left
-704
-#objects.Brick Wall9812221.top
-192
-#objects.Brick Wall15227113.id
-257
-#objects.Brick Wall15227113.left
-704
-#objects.Brick Wall15227113.top
-160
-#objects.Brick Wall13513646.id
-257
-#objects.Brick Wall13513646.left
-704
-#objects.Brick Wall13513646.top
-128
-#objects.Brick Wall11492832.id
-257
-#objects.Brick Wall11492832.left
-704
-#objects.Brick Wall11492832.top
-96
-#objects.Brick Wall3378010.id
-257
-#objects.Brick Wall3378010.left
-704
-#objects.Brick Wall3378010.top
+#objects.Enemy Start:1676161494:11351591.top
 64
-#objects.Brick Wall10401953.id
-257
-#objects.Brick Wall10401953.left
-704
-#objects.Brick Wall10401953.top
-32
-#objects.Brick Wall10619908.id
-257
-#objects.Brick Wall10619908.left
-672
-#objects.Brick Wall10619908.top
-32
-#objects.Brick Wall6002574.id
-257
-#objects.Brick Wall6002574.left
-640
-#objects.Brick Wall6002574.top
-32
-#objects.Brick Wall2356046.id
-257
-#objects.Brick Wall2356046.left
-576
-#objects.Brick Wall2356046.top
-32
-#objects.Brick Wall7270123.id
-257
-#objects.Brick Wall7270123.left
-576
-#objects.Brick Wall7270123.top
-32
-#objects.Brick Wall14200578.id
-257
-#objects.Brick Wall14200578.left
-544
-#objects.Brick Wall14200578.top
-32
-#objects.Brick Wall9076908.id
-257
-#objects.Brick Wall9076908.left
-512
-#objects.Brick Wall9076908.top
-32
-#objects.Brick Wall9940253.id
-257
-#objects.Brick Wall9940253.left
-480
-#objects.Brick Wall9940253.top
-32
-#objects.Brick Wall14088835.id
-257
-#objects.Brick Wall14088835.left
-448
-#objects.Brick Wall14088835.top
-32
-#objects.Brick Wall11765811.id
-257
-#objects.Brick Wall11765811.left
-416
-#objects.Brick Wall11765811.top
-32
-#objects.Brick Wall14469066.id
-257
-#objects.Brick Wall14469066.left
-416
-#objects.Brick Wall14469066.top
-32
-#objects.Brick Wall7570534.id
-257
-#objects.Brick Wall7570534.left
-384
-#objects.Brick Wall7570534.top
-32
-#objects.Brick Wall11692437.id
-257
-#objects.Brick Wall11692437.left
-352
-#objects.Brick Wall11692437.top
-32
-#objects.Brick Wall11164970.id
-257
-#objects.Brick Wall11164970.left
-320
-#objects.Brick Wall11164970.top
-32
-#objects.Brick Wall7886372.id
-257
-#objects.Brick Wall7886372.left
-256
-#objects.Brick Wall7886372.top
-32
-#objects.Brick Wall5168124.id
-257
-#objects.Brick Wall5168124.left
-288
-#objects.Brick Wall5168124.top
-32
-#objects.Brick Wall13290505.id
-257
-#objects.Brick Wall13290505.left
-224
-#objects.Brick Wall13290505.top
-32
-#objects.Brick Wall14166254.id
-257
-#objects.Brick Wall14166254.left
-192
-#objects.Brick Wall14166254.top
-32
-#objects.Brick Wall14335690.id
-257
-#objects.Brick Wall14335690.left
-160
-#objects.Brick Wall14335690.top
-32
-#objects.Brick Wall5530507.id
-257
-#objects.Brick Wall5530507.left
-64
-#objects.Brick Wall5530507.top
-32
-#objects.Brick Wall5541776.id
-257
-#objects.Brick Wall5541776.left
-96
-#objects.Brick Wall5541776.top
-32
-#objects.Player Start12048018.id
-1025
-#objects.Player Start12048018.left
-384
-#objects.Player Start12048018.top
-480
-#objects.Enemy Start16436231.id
-66561
-#objects.Enemy Start16436231.left
-128
-#objects.Enemy Start16436231.top
-128
-#objects.Enemy Start6832121.id
-66561
-#objects.Enemy Start6832121.left
-256
-#objects.Enemy Start6832121.top
-128
-#objects.Enemy Start10969317.id
-66561
-#objects.Enemy Start10969317.left
-352
-#objects.Enemy Start10969317.top
-128
-#objects.Enemy Start445937.id
-66561
-#objects.Enemy Start445937.left
-448
-#objects.Enemy Start445937.top
-128
-#objects.Enemy Start8347774.id
-66561
-#objects.Enemy Start8347774.left
-544
-#objects.Enemy Start8347774.top
-128
-#objects.Enemy Start6665657.id
-66561
-#objects.Enemy Start6665657.left
-640
-#objects.Enemy Start6665657.top
-128
-#objects.Enemy Start6952062.id
-66561
-#objects.Enemy Start6952062.left
-576
-#objects.Enemy Start6952062.top
-224
-#objects.Enemy Start14754204.id
-66561
-#objects.Enemy Start14754204.left
-480
-#objects.Enemy Start14754204.top
-224
-#objects.Enemy Start7193816.id
-66561
-#objects.Enemy Start7193816.left
-384
-#objects.Enemy Start7193816.top
-224
-#objects.Enemy Start1409222.id
-66561
-#objects.Enemy Start1409222.left
-288
-#objects.Enemy Start1409222.top
-224
-#objects.Enemy Start12040263.id
-66561
-#objects.Enemy Start12040263.left
-192
-#objects.Enemy Start12040263.top
-224
-#objects.Enemy Start5056551.id
-66561
-#objects.Enemy Start5056551.left
-96
-#objects.Enemy Start5056551.top
-224
 @objects
-Brick Wall5877117
-Brick Wall10865178
-Brick Wall5428823
-Brick Wall6148339
-Brick Wall4907982
-Brick Wall2359068
-Brick Wall10206748
-Brick Wall7164777
-Brick Wall1431693
-Brick Wall16063348
-Brick Wall16135993
-Brick Wall15213390
-Brick Wall13669418
-Brick Wall15804313
-Brick Wall522841
-Brick Wall8872112
-Brick Wall13944570
-Brick Wall2701320
-Brick Wall4158052
-Brick Wall2260057
-Brick Wall7281265
-Brick Wall9219973
-Brick Wall3958994
-Brick Wall3767139
-Brick Wall6015818
-Brick Wall16714322
-Brick Wall10118594
-Brick Wall10621161
-Brick Wall6736376
-Brick Wall14449859
-Brick Wall2091644
-Brick Wall7038181
-Brick Wall1308126
-Brick Wall10560481
-Brick Wall9812221
-Brick Wall15227113
-Brick Wall13513646
-Brick Wall11492832
-Brick Wall3378010
-Brick Wall10401953
-Brick Wall10619908
-Brick Wall6002574
-Brick Wall2356046
-Brick Wall7270123
-Brick Wall14200578
-Brick Wall9076908
-Brick Wall9940253
-Brick Wall14088835
-Brick Wall11765811
-Brick Wall14469066
-Brick Wall7570534
-Brick Wall11692437
-Brick Wall11164970
-Brick Wall7886372
-Brick Wall5168124
-Brick Wall13290505
-Brick Wall14166254
-Brick Wall14335690
-Brick Wall5530507
-Brick Wall5541776
-Player Start12048018
-Enemy Start16436231
-Enemy Start6832121
-Enemy Start10969317
-Enemy Start445937
-Enemy Start8347774
-Enemy Start6665657
-Enemy Start6952062
-Enemy Start14754204
-Enemy Start7193816
-Enemy Start1409222
-Enemy Start12040263
-Enemy Start5056551
-Enemy Start3733487
+Brick Wall:1676152836:1193721
+Brick Wall:1676153194:7682875
+Brick Wall:1676153850:6714806
+Brick Wall:1676154240:1568643
+Brick Wall:1676154926:9438336
+Brick Wall:1676155534:14149060
+Brick Wall:1676156065:4444475
+Enemy Start:1676158795:9640614
+Enemy Start:1676159372:454203
+Enemy Start:1676159918:15695735
+Enemy Start:1676160948:5264450
+Enemy Start:1676161494:11351591
+Player Start:1676164536:4392044
 /objects
-#objects.Enemy Start3733487.id
-66561
-#objects.Enemy Start3733487.left
+#objects.Player Start:1676164536:4392044.id
+1025
+#objects.Player Start:1676164536:4392044.left
 672
-#objects.Enemy Start3733487.top
-224
+#objects.Player Start:1676164536:4392044.top
+192

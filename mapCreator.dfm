@@ -3,7 +3,7 @@ object Form2: TForm2
   Top = 165
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Map Creator'
+  Caption = '=0)'
   ClientHeight = 512
   ClientWidth = 968
   Color = clBtnFace

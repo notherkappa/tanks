@@ -229,7 +229,8 @@ void RenderObject::render(TCanvas* extContext)
 //---------------------------------------------------------------------------
 Sprite::Sprite()
 {
-        frames = 0;
+        allFrames = 0;
+        ownFrames = false;
         context = 0;
         animations = new AnimationDescriptor[64];
         currentAnimation = 0;
@@ -311,6 +312,7 @@ bool Sprite::update()
         {
                 lastTimeUpdated = ::GetTickCount();
                 currentFrame = animations[currentAnimation].firstFrame;
+                setFrame(currentFrame);
                 return true;
         }
         uint timeLapsed = ::GetTickCount() - lastTimeUpdated;
@@ -320,6 +322,7 @@ bool Sprite::update()
                         currentFrame = animations[currentAnimation].firstFrame;
                 else
                         currentFrame++;
+                setFrame(currentFrame);
                 lastTimeUpdated = ::GetTickCount();
                 return true;
         }
@@ -327,7 +330,7 @@ bool Sprite::update()
 }
 void Sprite::render()
 {
-        picture.assign(&frames[currentFrame]);
+        picture.assign(&frame);
         picture.render();
 }
 TRect Sprite::getRect()
@@ -381,24 +384,20 @@ void Sprite::loadFromFile(String filename)
         int w = StrToInt(d.Get("w"));
         int h = StrToInt(d.Get("h"));
 
+        if (allFrames && ownFrames)
+                delete allFrames;
 
-        PBMP allFrames = new BMP();
+        allFrames = new BMP();
         allFrames->LoadFromFile(prefix+d.Get("spritesrc"));
         int framesCount = allFrames->Width/w;
-        PBMP * bmpFrames = new PBMP[framesCount];
-        frames = new FastBitmap[framesCount];
+
+        PBMP bmpFrame = new BMP();
+        bmpFrame->Width = w;
+        bmpFrame->Height = h;
+        frame.init(bmpFrame);
+
         frCount = framesCount;
-        for (int i=0; i<framesCount; i++)
-        {
-                bmpFrames[i] = new BMP();
-                bmpFrames[i]->Width  = w;
-                bmpFrames[i]->Height = h;
-                bmpFrames[i]->Canvas->CopyRect(Rect(0,0,w,h),
-                                               allFrames->Canvas,
-                                               Rect(w*i,0,w*i+w,h));
-                frames[i].init(bmpFrames[i]);
-        }
-        delete allFrames;
+        setFrame(0);
 
         z = StrToInt(d.Get("z"));
         width=w;
@@ -423,7 +422,6 @@ void Sprite::loadFromFile(String filename)
                 this->addAnimation(name,ff,lf,at);
         }
         delete aList;
-
         allowAttachment = true;
 }
 
@@ -441,8 +439,6 @@ bool Sprite::attach(String filename)
                         ("sprites\\res\\"+d.Get("registername")+".sprite\\") :
                         String("");
 
-        int w = StrToInt(d.Get("w"));
-        int h = StrToInt(d.Get("h"));
         int c = StrToInt(d.Get("color"));
 
         String modeString = d.Get("mode");
@@ -458,32 +454,36 @@ bool Sprite::attach(String filename)
 
         if (d.IsDefined("spritesrc"))
         {
-                PBMP allFrames = new BMP();
-                allFrames->LoadFromFile(prefix+d.Get("spritesrc"));
-                int framesCount = allFrames->Width/w;
-                PBMP * bmpFrames = new PBMP[framesCount];
-                FastBitmap * attachFrames = new FastBitmap[framesCount];
+                PBMP attachFrames = new BMP();
+                attachFrames->LoadFromFile(prefix+d.Get("spritesrc"));
+                FastBitmap fb;
+                fb.init(attachFrames);
                 RenderObject pic;
                 pic.setRenderMode(m,c);
-                for (int i=0; i<framesCount; i++)
+                if (!ownFrames)
                 {
-                        bmpFrames[i] = new BMP();
-                        bmpFrames[i]->Width  = w;
-                        bmpFrames[i]->Height = h;
-                        bmpFrames[i]->Canvas->CopyRect(Rect(0,0,w,h),
-                                                       allFrames->Canvas,
-                                                       Rect(w*i,0,w*i+w,h));
-                        attachFrames[i].init(bmpFrames[i]);
-                        pic.init(&attachFrames[i],&frames[i]);
-                        pic.render();
+                        PBMP newFrames = new BMP();
+                        newFrames->Width = allFrames->Width;
+                        newFrames->Height = allFrames->Height;
+                        newFrames->Canvas->CopyRect(Rect(0,0,newFrames->Width, newFrames->Height),
+                                                    allFrames->Canvas,
+                                                    Rect(0,0,newFrames->Width, newFrames->Height));
+                        allFrames = newFrames;
                 }
-                delete [] attachFrames;
-                delete [] bmpFrames;
-                delete allFrames;
+                pic.init(&fb,allFrames);
+                pic.render();
+                delete attachFrames;
         }
         if (!d.IsDefined("nofx"))
                 applyEffects(d,"postfx",m,c);
         return true;
+}
+void Sprite::setFrame(int i)
+{
+        frame.b->Canvas->CopyRect(Rect(0,0,width,height),
+                                  allFrames->Canvas,
+                                  Rect(width*i,0,width*i+width,height));
+
 }
 
 void Sprite::applyEffects(Defines &d, String effectsList, uint m, uint c)
@@ -493,57 +493,64 @@ void Sprite::applyEffects(Defines &d, String effectsList, uint m, uint c)
         {
                 String name = fx->Strings[i];
                 String op = d.Get(effectsList+"."+name+".id");
+
+                if (!ownFrames)
+                {
+                        PBMP newFrames = new BMP();
+                        newFrames->Width = allFrames->Width;
+                        newFrames->Height = allFrames->Height;
+                        newFrames->Canvas->CopyRect(Rect(0,0,newFrames->Width, newFrames->Height),
+                                                    allFrames->Canvas,
+                                                    Rect(0,0,newFrames->Width, newFrames->Height));
+                        allFrames = newFrames;
+                }
+                FastBitmap fb;
+                fb.init(allFrames);
+
                 if (op == "crp")
                 {
                         uint changeColor = StrToInt(d.Get(effectsList+"."+name+".replace"));
                         uint replaceColor= StrToInt(d.Get(effectsList+"."+name+".with"));
-                        for (uint i=0; i<frCount; i++)
-                                frames[i].replaceColor(changeColor,replaceColor, m!=RM_NORMAL, c);
+                        fb.replaceColor(changeColor,replaceColor, m!=RM_NORMAL, c);
                 }
                 else if (op == "mul")
                 {
                         uint mulValue = StrToInt(d.Get(effectsList+"."+name+".value"));
-                        for (uint i=0; i<frCount; i++)
-                                frames[i].multiply(mulValue,m!=RM_NORMAL,c);
+                        fb.multiply(mulValue,m!=RM_NORMAL,c);
                 }
                 else if (op == "add")
                 {
                         uint addValue = StrToInt(d.Get(effectsList+"."+name+".value"));
-                        for (uint i=0; i<frCount; i++)
-                                frames[i].addValue(addValue,m!=RM_NORMAL,c);
+                        fb.addValue(addValue,m!=RM_NORMAL,c);
                 }
                 else if (op == "col")
                 {
                         uint cValue = StrToInt(d.Get(effectsList+"."+name+".center"));
                         uint dValue = StrToInt(d.Get(effectsList+"."+name+".degree"));
-                        for (uint i=0; i<frCount; i++)
-                                frames[i].transformContrastLowerTo(cValue, dValue, m !=RM_NORMAL, c);
+                        fb.transformContrastLowerTo(cValue, dValue, m !=RM_NORMAL, c);
                 }
                 else if (op == "coh")
                 {
                         uint cValue = StrToInt(d.Get(effectsList+"."+name+".center"));
                         uint dValue = StrToInt(d.Get(effectsList+"."+name+".degree"));
-                        for (uint i=0; i<frCount; i++)
-                                frames[i].transformContrastHigherTo(cValue, dValue, m !=RM_NORMAL, c);
+                        fb.transformContrastHigherTo(cValue, dValue, m !=RM_NORMAL, c);
                 }
                 else if (op == "inv")
-                        for (uint i=0; i<frCount; i++)
-                                frames[i].invert(m!=RM_NORMAL,c);
+                        fb.invert(m!=RM_NORMAL,c);
                 else if (op == "alp")
                 {
                         uint aColor = StrToInt(d.Get(effectsList+"."+name+".color"));
                         uint opacity = StrToInt(d.Get(effectsList+"."+name+".opacity"));
-                        for (uint i=0; i<frCount; i++)
-                                frames[i].alphaColor(aColor,opacity,m!=RM_NORMAL,c);
+                        fb.alphaColor(aColor,opacity,m!=RM_NORMAL,c);
                 }
         }
 }
 
 void Sprite::flush()
 {
-        for (uint i=0; i<frCount; i++)
-                delete frames[i].b;
-        delete [] frames;
+        if (ownFrames)
+                delete allFrames;
+        delete frame.b;
 }
 
 //---------------------------------------------------------------------------
@@ -567,39 +574,7 @@ void SpriteFabric::scan()
         DeleteFile("sprites\\last_fabric_scan.list");
         delete bat;
 }
-TStringList * SpriteFabric::decomp(String c, char d)
-{
-        char *srcString = c.c_str();
-        char *tmpString = new char [c.Length()];
-        TStringList * words = new TStringList();
-        int index=0, tIndex=0;
-        memset(tmpString,0,c.Length());
-        for (; index<c.Length(); index++)
-        {
-                if (srcString[index]==d)
-                        if (index==0)
-                        {
-                                delete[] tmpString;
-                                delete words;
-                                return 0;
-                        }
-                        else
-                        {
-                                words->Add(tmpString);
-                                memset(tmpString,0,c.Length());
-                                tIndex=0;
-                        }
-                else
-                {
-                        tmpString[tIndex]=srcString[index];
-                        tIndex++;
-                }
-        }
-        if (tIndex!=0)
-                words->Add(tmpString);
-        delete [] tmpString;
-        return words;
-}
+
 
 Sprite * SpriteFabric::newSprite(String comp, FastBitmap * context)
 {
@@ -632,23 +607,26 @@ Sprite * SpriteFabric::copySprite(Sprite * src)
         TRect sr = src->getRect();
         int w = sr.right-sr.left;
         int h = sr.bottom-sr.top;
-        PBMP * bmpframes = new PBMP[src->frCount];
-        s->frames = new FastBitmap[src->frCount];
-        for (uint i=0; i<src->frCount; i++)
-        {
-                bmpframes[i] = new BMP();
-                bmpframes[i]->Width = w;
-                bmpframes[i]->Height = h;
-                bmpframes[i]->Canvas->CopyRect(Rect(0,0,w,h),
-                                               src->frames[i].b->Canvas,
-                                               Rect(0,0,w,h));
-                s->frames[i].init(bmpframes[i]);
-        }
+
+        PBMP newFrames = new BMP();
+        newFrames->Width = src->allFrames->Width;
+        newFrames->Height = src->allFrames->Height;
+        newFrames->Canvas->CopyRect(Rect(0,0,newFrames->Width, newFrames->Height),
+                                    src->allFrames->Canvas,
+                                    Rect(0,0,newFrames->Width, newFrames->Height));
+        s->allFrames = newFrames;
+        s->ownFrames = true;
+
+        PBMP bmpFrame = new BMP();
+        bmpFrame->Width = w;
+        bmpFrame->Height = h;
+        s->frame.init(bmpFrame);
+
+        s->setFrame(src->currentFrame);
         s->setAnimation(src->getCurrentAnimationName());
         s->setPosition(sr.left,sr.top);
         s->setRenderMode(src->picture.getMode(),src->picture.getColor());
         s->currentAnimation = src->currentAnimation;
-        s->currentFrame = src->currentFrame;
         s->lastTimeUpdated = src->lastTimeUpdated;
         s->animate = src->animate;
         s->z = src->z;
@@ -670,18 +648,25 @@ Sprite * SpriteFabric::newInstanceOf(Sprite * src)
         TRect sr = src->getRect();
         int w = sr.right-sr.left;
         int h = sr.bottom-sr.top;
-        PBMP * bmpframes = new PBMP[src->frCount];
-        s->frames = new FastBitmap[src->frCount];
-        for (uint i=0; i<src->frCount; i++)
+        if (!src->ownFrames)
         {
-                bmpframes[i] = new BMP();
-                bmpframes[i]->Width = w;
-                bmpframes[i]->Height = h;
-                bmpframes[i]->Canvas->CopyRect(Rect(0,0,w,h),
-                                               src->frames[i].b->Canvas,
-                                               Rect(0,0,w,h));
-                s->frames[i].init(bmpframes[i]);
+                PBMP newFrames = new BMP();
+                newFrames->Width = src->allFrames->Width;
+                newFrames->Height = src->allFrames->Height;
+                newFrames->Canvas->CopyRect(Rect(0,0,newFrames->Width, newFrames->Height),
+                                            src->allFrames->Canvas,
+                                            Rect(0,0,newFrames->Width, newFrames->Height));
+                s->allFrames = newFrames;
         }
+        else
+                s->allFrames = src->allFrames;
+
+        PBMP bmpFrame = new BMP();
+        bmpFrame->Width = w;
+        bmpFrame->Height = h;
+        s->frame.init(bmpFrame);
+
+        s->setFrame(0);
         s->setAnimation(0);
         s->setRenderMode(src->picture.getMode(),src->picture.getColor());
         s->z = src->z;
@@ -696,7 +681,6 @@ uint RenderManager::add(Sprite * s)
 {
         sprites.push_back(s);
         sprites.sort();
-        sprites.reverse();
         s->id = getId();
         return s->id;
 }

@@ -53,7 +53,7 @@ struct IMessage;
 struct IMessage
 {
         static IMessage* createFreeMessage();
-        static IMessage* createMoveRequestMessage(GameObject * s, uint l, uint t);
+        static IMessage* createMoveRequestMessage(GameObject * s, double l, double t);
         static IMessage* createStatsIncreaseMessage(uint value);
         static IMessage* createShowMessageMessage(String message);
         static IMessage* createDestroyMeMessage(GameObject *s);
@@ -87,6 +87,7 @@ public:
         ~GameManager();
 
         void setRenderManager(RenderManager * rm);
+        RenderManager* getRenderManager(){return renderManager;}
         void sendMessage(IMessage * m);
 
         void testCollisions();

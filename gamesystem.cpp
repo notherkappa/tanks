@@ -11,7 +11,7 @@ IMessage* IMessage::createFreeMessage()
         m->type = MSG_FREE;
         return m;
 }
-IMessage* IMessage::createMoveRequestMessage(GameObject * s, uint l, uint t)
+IMessage* IMessage::createMoveRequestMessage(GameObject * s, double l, double t)
 {
         IMessage *m = new IMessage();
         m->type = MSG_MOVE_REQUEST;

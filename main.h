@@ -32,7 +32,6 @@ __published:	// IDE-managed Components
         TProgressBar *ProgressBar1;
         TLabel *Label5;
         void __fastcall FormCreate(TObject *Sender);
-        void __fastcall FormResize(TObject *Sender);
         void __fastcall FormMouseMove(TObject *Sender, TShiftState Shift,
           int X, int Y);
         void __fastcall FormKeyPress(TObject *Sender, char &Key);

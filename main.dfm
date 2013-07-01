@@ -19,7 +19,6 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnMouseMove = FormMouseMove
-  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
@@ -85,9 +84,9 @@ object Form1: TForm1
     object Label5: TLabel
       Left = 96
       Top = 84
-      Width = 30
+      Width = 22
       Height = 20
-      Caption = 'HP: '
+      Caption = 'HP'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -127,6 +126,7 @@ object Form1: TForm1
     Top = 8
   end
   object Timer2: TTimer
+    Interval = 1
     OnTimer = Timer2Timer
     Left = 104
     Top = 8

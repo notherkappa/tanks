@@ -47,13 +47,15 @@ void __fastcall TForm2::buildEditorInterface()
                 cursorContext = new BMP();
                 cursorContext->Width = ClientWidth;
                 cursorContext->Height = ClientHeight;
-                
+
                 paletteItem = new BMP();
                 paletteItem->Width = 32;
                 paletteItem->Height = 32;
 
 
                 DoubleBuffered=true;
+                GameMap * gm = new GameMap();
+                map = *gm;
         }
 }
 //---------------------------------------------------------------------------
@@ -102,7 +104,7 @@ void __fastcall TForm2::FormClick(TObject *Sender)
                 Defines ed;
                 ed.Load("maps\\mapeditor.cfg");
                 TStringList * l = ed.GetList("objects");
-                map.addObject(l->Strings[pickedItem-1]+IntToStr(random(0xFFFFFF)), StrToInt(ed.Get("objects."+l->Strings[pickedItem-1]+".id")),cLeft,cTop);
+                map.addObject(l->Strings[pickedItem-1]+":"+IntToStr(::GetTickCount())+":"+IntToStr(random(0xFFFFFF)), StrToInt(ed.Get("objects."+l->Strings[pickedItem-1]+".id")),cLeft,cTop);
                 int ii=0;
                 for (std::list<PBMP>::iterator i=palette.begin(); i!=palette.end();i++,ii++)
                         if (ii==pickedItem-1)

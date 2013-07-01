@@ -139,9 +139,13 @@ public:
 private:
 
         void applyEffects(Defines &defs, String effectsList, uint mode, uint color);
-        FastBitmap * frames;
+        void setFrame(int i);
+
         RenderObject picture;
         FastBitmap * context;
+        FastBitmap frame;
+        PBMP allFrames;
+        bool ownFrames;
 
         uint currentAnimation;
         uint animationCount;
@@ -156,8 +160,6 @@ class SpriteFabric
 {
         SpriteFabric(){;}
         ~SpriteFabric(){;}
-        static TStringList * decomp(String c, char delimeter);
-
 public:
         static void scan();
         static Sprite * newSprite(String composition, FastBitmap * context);

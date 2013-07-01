@@ -63,6 +63,7 @@ AIRandomMoveTank::AIRandomMoveTank(GameManager *mgr, FastBitmap *c, String profi
         movingValuesSum = cnt;
         lasttimeChangedMove = 0;
         changeTime = StrToInt(d.Get("mv_t"));
+        ccTime = random(changeTime)+changeTime/2;
         scoreForKill = StrToInt(d.Get("score"));
         team = TEAM_AI;
         type = TYPE_AI_TANK;
@@ -78,8 +79,11 @@ void AIRandomMoveTank::processMessage(IMessage * msg)
 
                 if (msg->super->type&TYPE_WALL)
                 {
-                        state = changeMove();
-                        lasttimeChangedMove = ::GetTickCount();
+                        if (msg->super->type != TYPE_BRICK_WALL || random(100)>95)
+                        {
+                                state = changeMove();
+                                lasttimeChangedMove = ::GetTickCount();
+                        }
                 }
                 else if (msg->super->type&TYPE_BULLETS)
                 {
@@ -133,12 +137,13 @@ int AIRandomMoveTank::changeMove()
 }
 void AIRandomMoveTank::update(uint t)
 {
-        uint timel = t - lasttimeUpdated;
+        double timel = t - lasttimeUpdated;
 
-        if (::GetTickCount()-lasttimeChangedMove>changeTime && state != AIRM_STATE_DEAD)
+        if (::GetTickCount()-lasttimeChangedMove>ccTime && state != AIRM_STATE_DEAD)
         {
                 state = changeMove();
                 lasttimeChangedMove = ::GetTickCount();
+                ccTime = random(changeTime)+changeTime/2;
         }
 
 
@@ -172,13 +177,13 @@ void AIRandomMoveTank::update(uint t)
 
 
         if ((state&0xFF) == AIRM_STATE_GO_UP)
-                r.top -= speed*timel/1000;
+                r.top -= double(speed)*timel/1000.;
         if ((state&0xFF) == AIRM_STATE_GO_RIGHT)
-                r.left += speed*timel/1000;
+                r.left += double(speed)*timel/1000.;
         if ((state&0xFF) == AIRM_STATE_GO_DOWN)
-                r.top += speed*timel/1000;
+                r.top += double(speed)*timel/1000.;
         if ((state&0xFF) == AIRM_STATE_GO_LEFT)
-                r.left -= speed*timel/1000;
+                r.left -= double(speed)*timel/1000.;
 
         manager->sendMessage(IMessage::createMoveRequestMessage(this,r.left,r.top));
         shoot();

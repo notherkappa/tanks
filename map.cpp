@@ -30,6 +30,23 @@ void GameMap::removeObject(TRect point)
 void GameMap::generateObjects(GameManager *gm, FastBitmap* c)
 {
         TStringList * l = map.GetList("objects");
+        TStringList * sp = map.GetList("sprites");
+        if (sp!=0)
+                for (int i=0; i<sp->Count; i++)
+                {
+                        Sprite * sprite = new Sprite();
+                        sprite->loadFromFile("sprites\\"+map.Get("sprites."+sp->Strings[i]+".sprite"));
+                        sprite->setPosition(StrToInt(map.Get("sprites."+sp->Strings[i]+".left")),StrToInt(map.Get("sprites."+sp->Strings[i]+".top")));
+                        if (map.IsDefined("sprites."+sp->Strings[i]+".animation"))
+                        {
+                                sprite->setAnimation(map.Get("sprites."+sp->Strings[i]+".animation"));
+                                sprite->update();
+                        }
+                        if (map.IsDefined("sprites."+sp->Strings[i]+".dontanimate"))
+                                sprite->animate=false;
+                        sprite->setContext(c);
+                        gm->getRenderManager()->add(sprite);
+                }
         for (int i=0; i<l->Count; i++)
         {
                 String name = l->Strings[i];

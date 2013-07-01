@@ -33,7 +33,7 @@ protected:
         int movingValuesSum;
 
         uint lasttimeChangedMove;
-        uint changeTime;
+        uint changeTime, ccTime, cAttackSpeed;
         int scoreForKill;
 
 
