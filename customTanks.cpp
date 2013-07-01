@@ -10,7 +10,9 @@ CustomPlayerTank::CustomPlayerTank(GameManager *mgr, FastBitmap *c, String profi
         Defines profile;
         profile.Load("userdata\\"+profileFilename);
         delete sprite;
-        sprite = SpriteFabric::newSprite(profile.Get("sprite"),context);
+        
+        SpriteFabric * sf = SpriteFabric::getInstance();
+        sprite = sf->SFM_CURRENT(profile.Get("sprite"),context);
         attackCoolDown = StrToInt(profile.Get("as"));
         speed = StrToInt(profile.Get("speed"));
         dmgmin = StrToInt(profile.Get("dmgmin"));

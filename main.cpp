@@ -37,6 +37,8 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
         fbC->init(ct);
         this->ts.ct=fbC;
         ts.s.setContext(ts.ct);
+
+
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::FormMouseMove(TObject *Sender, TShiftState Shift,
@@ -216,6 +218,16 @@ void __fastcall TForm1::initGame()
         gt.rm->setContext(ts.ct,Canvas,SIZE__L, SIZE__T, clGray);
         gt.gm = new GameManager();
         gt.gm->setRenderManager(gt.rm);
+
+
+        SpriteFabric * sf = SpriteFabric::getInstance();
+        sf->addSpriteToCache("tank_babyboy");
+        sf->addSpriteToCache("tank_babyboy_blue");
+        sf->addSpriteToCache("brickwall");
+        sf->addSpriteToCache("concretewall1");
+        sf->addSpriteToCache("anticoncretebullet");
+        sf->addSpriteToCache("bullet");
+
         gt.map.load("maps\\temp.map");
         gt.map.generateObjects(gt.gm,ts.ct);
         UserStats * us = UserStats::getInstance();

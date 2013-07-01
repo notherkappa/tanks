@@ -12,8 +12,9 @@ BrickWall::BrickWall(GameManager * gm, FastBitmap *c)
         context = c;
         manager = gm;
         hp=maxhp=100;
-
-        sprite = SpriteFabric::newSprite("brickwall",c);
+        
+        SpriteFabric * sf = SpriteFabric::getInstance();
+        sprite = sf->SFM_CURRENT("brickwall",c);
 }
 BrickWall::~BrickWall()
 {
@@ -63,7 +64,9 @@ ConcreteWall::ConcreteWall(GameManager * mgr, FastBitmap * ct)
         maxhp=hp = 100;
         typeResist = RESIST_TYPE_NORMAL;
         valueResist = 95;
-        sprite = SpriteFabric::newSprite("concretewall1",context);
+        
+        SpriteFabric * sf = SpriteFabric::getInstance();
+        sprite = sf->SFM_CURRENT("concretewall1",context);
 }
 ConcreteWall::~ConcreteWall()
 {

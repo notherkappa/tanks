@@ -10,7 +10,7 @@ class BrickWall : public GameObject
 public:
         BrickWall(){;}
         BrickWall(GameManager * mgr, FastBitmap *c);
-        ~BrickWall();
+        virtual ~BrickWall();
 
         void keyUpdate(uint spKey){;}
         void processMessage(IMessage * msg);
@@ -25,7 +25,7 @@ class ConcreteWall : public GameObject
 public:
         ConcreteWall(){;}
         ConcreteWall(GameManager * mgr, FastBitmap *c);
-        ~ConcreteWall();
+        virtual ~ConcreteWall();
 
         void keyUpdate(uint spKey){;}
         void processMessage(IMessage * msg);

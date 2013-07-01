@@ -423,6 +423,7 @@ void Sprite::loadFromFile(String filename)
         }
         delete aList;
         allowAttachment = true;
+        ownFrames = true;
 }
 
 bool Sprite::attach(String filename)
@@ -675,6 +676,106 @@ Sprite * SpriteFabric::newInstanceOf(Sprite * src)
         s->height = h;
         return s;
 }
+
+bool SpriteFabric::spriteInCache(String composition)
+{
+        std::map<String,PBMP>::iterator it;
+        it = cache.find(composition);
+        if (it!=cache.end())
+                return true;
+        return false;
+}
+void SpriteFabric::addSpriteToCache(String composition)
+{
+        Sprite * s = newSprite(composition,0);
+        if (spriteInCache(composition))
+        {
+                cache[composition] = s->allFrames;
+                s->ownFrames=false;
+        }
+        delete s;
+}
+Sprite * SpriteFabric::newCachedSprite(String composition, FastBitmap * context)
+{
+        if (!spriteInCache(composition))
+        {
+                Sprite * s = newSprite(composition, context);
+                cache [composition] = s->allFrames;
+                s->ownFrames=false;
+                return s;
+        }
+        Sprite *s = new Sprite();
+
+        TStringList * parts=new TStringList();
+        parts->Delimiter= '+';
+        parts->DelimitedText = composition;
+        if (parts == 0)
+                return 0;
+        if (!FileExists("sprites\\fbDefines.fabric"))
+                scan();
+        Defines d;
+        d.Load("sprites\\fbDefines.fabric");
+        d.Load(d.Get(parts->Strings[0]));
+
+
+        if (!(d.IsDefined("defines") && d.IsDefined("spriteconfig")))
+                return 0;
+        if (d.Get("type")=="attachment")
+                return 0;
+        String prefix = d.IsDefined("registername") ?
+                        ("sprites\\res\\"+d.Get("registername")+".sprite\\") :
+                        String("");
+        int w = StrToInt(d.Get("w"));
+        int h = StrToInt(d.Get("h"));
+
+
+        s->allFrames = cache[composition];
+
+        PBMP bmpFrame = new BMP();
+        int framesCount = s->allFrames->Width/w;
+        bmpFrame->Width = w;
+        bmpFrame->Height = h;
+        s->frame.init(bmpFrame);
+
+        s->frCount = framesCount;
+        s->setFrame(0);
+
+        s->z = StrToInt(d.Get("z"));
+        s->width=w;
+        s->height=h;
+
+        String modeString = d.Get("mode");
+        int iMode=0;
+        if (modeString == "alpha")
+                iMode = RM_ALPHA_MASK;
+        else if (modeString == "overlay")
+                iMode = RM_OVERLAY;
+
+        s->picture.setRenderMode(iMode,StrToInt(d.Get("color")));
+
+        TStringList * aList = d.GetList("animationlist");
+        for (int i=0; i<aList->Count; i++)
+        {
+                String name = aList->Strings[i];
+                int ff = StrToInt(d.Get("animations."+name+".firstFrame"));
+                int lf = StrToInt(d.Get("animations."+name+".lastFrame"));
+                int at = StrToInt(d.Get("animations."+name+".animationTime"));
+                s->addAnimation(name,ff,lf,at);
+        }
+        delete aList;
+        s->allowAttachment = false;
+        s->ownFrames = false;
+        s->setContext(context);
+        return s;
+}
+SpriteFabric * SpriteFabric::getInstance()
+{
+        if (spriteFabricInstanceStruct.instance)
+                return spriteFabricInstanceStruct.instance;
+        spriteFabricInstanceStruct.instance=new SpriteFabric();
+        return spriteFabricInstanceStruct.instance;
+}
+
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 uint RenderManager::add(Sprite * s)

@@ -2,6 +2,12 @@
 #define objectsDefinesH
 
 
+#define SFM_CURRENT     SFM_CACHED
+#define SFM_NEW         newSprite
+#define SFM_CACHED      newCachedSprite
+#define SFM_COPY        copySprite
+#define SFM_INSTANCE    newInstanceOf
+
 #define TYPE_WALL                       0x100
 #define TYPE_BRICK_WALL                 0x101
 #define TYPE_CONCRETE_WALL_LVL1         0x102

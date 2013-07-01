@@ -34,7 +34,7 @@
     <MAINSOURCE value="tanks.cpp"/>
     <INCLUDEPATH value="C:\Windows\system32;..;tanks;$(BCB)\include;$(BCB)\include\vcl"/>
     <LIBPATH value="C:\Windows\system32;..;tanks;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib"/>
-    <WARNINGS value="-w-par -w-eas"/>
+    <WARNINGS value="-w-par -w-eas -w-aus"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>

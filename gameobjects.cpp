@@ -18,7 +18,9 @@ PlayerTank::PlayerTank(GameManager* mgr, FastBitmap * c)
         lasttimeAttack = 0;
         memset(arrowsPressed,0,4);
         lasttimeUpdated = ::GetTickCount();
-        sprite = SpriteFabric::newSprite("tank_babyboy",c);
+
+        SpriteFabric * sf = SpriteFabric::getInstance();
+        sprite = sf->SFM_CURRENT("tank_babyboy",c);
         moveRequested=false;
 
         UserStats * us = UserStats::getInstance();
@@ -200,8 +202,9 @@ Bullet::Bullet(GameManager * mgr, FastBitmap * c, GameObject * owner, int mindmg
         dmg = mindmg+random(maxdmg-mindmg+1);
         speed=sp;
         lasttimeUpdated = ::GetTickCount();
-
-        sprite = SpriteFabric::newSprite("bullet",context);
+        
+        SpriteFabric * sf = SpriteFabric::getInstance();
+        sprite = sf->SFM_CURRENT("bullet",context);
 
         TRect r = owner->sprite->getRect();
         int l=r.left,t=r.top;

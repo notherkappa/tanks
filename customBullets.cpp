@@ -10,7 +10,9 @@ AntiConcreteBullet::AntiConcreteBullet(GameManager * mgr, FastBitmap * c, GameOb
                                        :Bullet(mgr, c,owner, mindmg,maxdmg,speed)
 {
         delete sprite;
-        sprite = SpriteFabric::newSprite("anticoncretebullet",context);
+        
+        SpriteFabric * sf = SpriteFabric::getInstance();
+        sprite = sf->SFM_CURRENT("anticoncretebullet",context);
 
         TRect r = owner->sprite->getRect();
         int l=r.left,t=r.top;

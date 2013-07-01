@@ -10,7 +10,7 @@ class CustomPlayerTank : public PlayerTank
 {
 public:
         CustomPlayerTank(){;}
-        ~CustomPlayerTank();
+        virtual ~CustomPlayerTank();
         CustomPlayerTank(GameManager *mgr, FastBitmap *c, String profile);
 
         virtual void shoot();
@@ -22,7 +22,7 @@ class AIRandomMoveTank : public CustomPlayerTank
 {
 public:
         AIRandomMoveTank(){;}
-        ~AIRandomMoveTank(){delete sprite;}
+        virtual ~AIRandomMoveTank(){delete sprite;}
         AIRandomMoveTank(GameManager *mgr, FastBitmap *c, String profile);
         virtual void keyUpdate(uint spKey){;}
         virtual void processMessage(IMessage * msg);

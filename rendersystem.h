@@ -5,6 +5,7 @@
 #include <vcl.h>
 #include <Classes.hpp>
 #include <list>
+#include <map>
 #include "fastbitmap.h"
 #include "defines.h"
 
@@ -158,15 +159,32 @@ private:
 
 class SpriteFabric
 {
-        SpriteFabric(){;}
-        ~SpriteFabric(){;}
 public:
         static void scan();
         static Sprite * newSprite(String composition, FastBitmap * context);
         static Sprite * copySprite(Sprite * src);
         static Sprite * newInstanceOf(Sprite * src);
+        static SpriteFabric * getInstance();
+        Sprite * newCachedSprite(String composition, FastBitmap * context);
 
+        void addSpriteToCache(String composition);
+        bool spriteInCache(String composition);
+
+private:
+        SpriteFabric(){;}
+        ~SpriteFabric(){;}
+        std::map<String, PBMP> cache;
 };
+
+struct SpriteFabricInstanceStruct
+{
+        friend class SpriteFabric;
+        SpriteFabricInstanceStruct(){instance = 0;}
+        ~SpriteFabricInstanceStruct(){;}
+private:
+        SpriteFabric * instance;
+}spriteFabricInstanceStruct;
+
 
 class RenderManager
 {

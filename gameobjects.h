@@ -15,7 +15,7 @@ class Bullet : public GameObject
 public:
         Bullet(){;}
         Bullet(GameManager * mgr, FastBitmap * c, GameObject * owner, int mindmg, int maxdmg, int speed);
-        ~Bullet();
+        virtual ~Bullet();
         virtual void keyUpdate(uint spKey){;}
         virtual void processMessage(IMessage * msg);
         virtual void update(uint t);
@@ -31,7 +31,7 @@ class PlayerTank : public GameObject
 public:
         PlayerTank(){;}
         PlayerTank(GameManager* mgr, FastBitmap * c);
-        ~PlayerTank();
+        virtual ~PlayerTank();
 
         virtual void keyUpdate(uint spKey);
         virtual void processMessage(IMessage * msg);
