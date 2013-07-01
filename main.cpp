@@ -219,21 +219,22 @@ void __fastcall TForm1::initGame()
         gt.gm = new GameManager();
         gt.gm->setRenderManager(gt.rm);
 
-
         SpriteFabric * sf = SpriteFabric::getInstance();
-        sf->addSpriteToCache("tank_babyboy");
-        sf->addSpriteToCache("tank_babyboy_blue");
-        sf->addSpriteToCache("brickwall");
-        sf->addSpriteToCache("concretewall1");
-        sf->addSpriteToCache("anticoncretebullet");
-        sf->addSpriteToCache("bullet");
+        Defines globalConfig;
+        globalConfig.Load("userdata\\global.cfg");
+        TStringList * cachedSprites = globalConfig.GetList("cachedsprites");
+        for (int i=0; i<cachedSprites->Count; i++)
+                sf->addSpriteToCache(cachedSprites->Strings[i]);
 
         gt.map.load("maps\\temp.map");
         gt.map.generateObjects(gt.gm,ts.ct);
         UserStats * us = UserStats::getInstance();
         us->levelName = gt.map.getLevelName();
-        us->print(Label2,Label3,Label1,Label4, ProgressBar1, Label5);
+        us->livesCount=3;
+        us->print(Label2,Label3,Label1,Label4,ProgressBar1, Label5);
         GTimer->Enabled=true;
+        Timer2->Enabled=true;
+        delete cachedSprites;
 }
 //---------------------------------------------------------------------------
 
@@ -241,7 +242,22 @@ void __fastcall TForm1::initGame()
 void __fastcall TForm1::Timer2Timer(TObject *Sender)
 {
         UserStats * us = UserStats::getInstance();
+        if (us->hp<=0)
+        {
+                us->livesCount--;
+                if (us->livesCount<0)
+                {
+                        us->gameOver=true;
+                        GTimer->Enabled = false;
+                        Timer2->Enabled = false;
+                        ShowMessage("Game Over.");
+                }
+                else
+                        us->hp=100;
+        }
+        
         us->print(Label2,Label3,Label1,Label4, ProgressBar1, Label5);
+
 }
 //---------------------------------------------------------------------------
 

@@ -562,6 +562,8 @@ void SpriteFabric::scan()
         bat->SaveToFile("fabricScan.bat");
         ShellExecute(0,"open", "fabricScan.bat",0,0,SW_HIDE);
         Sleep(uint(600));
+        if (!FileExists("sprites\\last_fabric_scan.list"))
+                return;
         bat->LoadFromFile("sprites\\last_fabric_scan.list");
         Defines spDefines, fbDefines;
         for (int i=0; i<bat->Count; i++)
@@ -711,11 +713,8 @@ Sprite * SpriteFabric::newCachedSprite(String composition, FastBitmap * context)
         parts->DelimitedText = composition;
         if (parts == 0)
                 return 0;
-        if (!FileExists("sprites\\fbDefines.fabric"))
-                scan();
         Defines d;
-        d.Load("sprites\\fbDefines.fabric");
-        d.Load(d.Get(parts->Strings[0]));
+        d.Load(fbD.Get(parts->Strings[0]));
 
 
         if (!(d.IsDefined("defines") && d.IsDefined("spriteconfig")))

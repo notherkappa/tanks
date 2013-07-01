@@ -171,9 +171,11 @@ public:
         bool spriteInCache(String composition);
 
 private:
-        SpriteFabric(){;}
+        SpriteFabric(){if (!FileExists("sprites\\fbDefines.fabric")) scan();
+                       fbD.Load("sprites\\fbDefines.fabric");}
         ~SpriteFabric(){;}
         std::map<String, PBMP> cache;
+        Defines fbD;
 };
 
 struct SpriteFabricInstanceStruct

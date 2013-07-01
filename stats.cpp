@@ -11,6 +11,7 @@ UserStats::UserStats()
         levelName = "";
         usStatic.init = true;
         usStatic.instance = this;
+        lasttimedmg=0;
 }
 UserStats::~UserStats()
 {
@@ -33,6 +34,18 @@ void UserStats::print(TLabel *livesCountLabel,  TLabel * scoresLabel, TLabel * l
         pb->Position=hp;
         currenthp->Caption = "HP: "+IntToStr(hp);
 
+}
+void UserStats::damage(int i)
+{
+        if (::GetTickCount()-lasttimedmg>250)
+        {
+                hp-=i;
+                if (hp<0)
+                        hp=0;
+                if (hp>maxhp)
+                        hp=maxhp;
+                lasttimedmg=::GetTickCount();
+        }
 }
 
 //---------------------------------------------------------------------------

@@ -7,6 +7,7 @@
 #include <StdCtrls.hpp> 
 #include <ExtCtrls.hpp>
 #include <ComCtrls.hpp>
+#include "logic.h"
 
 
 
@@ -16,15 +17,19 @@ public:
         static UserStats* getInstance();
         void print(TLabel *livesCountLabel,  TLabel * scoresLabel, TLabel * lvlNameLabel, TLabel * gameOverLabel, TProgressBar * pb, TLabel* currenthp);
 
+        void damage(int i);
         int livesCount, scores;
         int enemyTotalCount;
         int maxhp, hp;
         bool gameOver;
         String levelName;
 
+
 private:
         UserStats();
         ~UserStats();
+        
+        uint lasttimedmg;
 };
 
 

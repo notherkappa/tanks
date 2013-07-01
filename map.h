@@ -22,8 +22,12 @@ public:
         void removeObject(TRect point);
         void generateObjects(GameManager *gm, FastBitmap* c);
         String getLevelName(){return map.Get("name");}
-private:
+        String getRespawnLeft(){return StrToInt("respawnPlayer1.left");}
+        String getRespawnTop() {return StrToInt("respawnPlayer1.top" );}
+
+        
         Defines map;
+private:
 
 };
 //---------------------------------------------------------------------------

@@ -41,8 +41,10 @@ void __fastcall TForm2::buildEditorInterface()
                 img->OnClick = PaletteClick;
                 palette.push_back(bmpImg);
                 context = new BMP();
+                context->Canvas->Brush->Color=clSilver;
                 context->Width = ClientWidth;
                 context->Height = ClientHeight;
+                context->Canvas->FillRect(Rect(0,0,ClientWidth,ClientHeight));
 
                 cursorContext = new BMP();
                 cursorContext->Width = ClientWidth;
@@ -71,6 +73,8 @@ void __fastcall TForm2::PaletteClick(TObject *Sender)
         for (std::list<PBMP>::iterator i=palette.begin(); i!=palette.end();i++,ii++)
                 if (ii==pickedItem-1)
                 {
+                        paletteItem->Canvas->Brush->Color=clSilver;
+                        paletteItem->Canvas->FillRect(Rect(0,0,32,32));
                         paletteItem->Canvas->CopyRect(Rect(0,0,32,32), (*i)->Canvas, Rect(0,0,32,32));
                 }
 
@@ -79,8 +83,8 @@ void __fastcall TForm2::PaletteClick(TObject *Sender)
 void __fastcall TForm2::GroupBox1Click(TObject *Sender)
 {
         pickedItem=0;
-        paletteItem->Canvas->Brush->Color=clWhite;
-        paletteItem->Canvas->FillRect(Rect(0,0,paletteItem->Width,paletteItem->Height));
+        paletteItem->Canvas->Brush->Color=clSilver;
+        paletteItem->Canvas->FillRect(Rect(0,0,32,32));
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm2::FormMouseMove(TObject *Sender, TShiftState Shift,
@@ -112,6 +116,33 @@ void __fastcall TForm2::FormClick(TObject *Sender)
                 delete l;
                 map.save("maps\\temp.map", " 1");
         }
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm2::Button1Click(TObject *Sender)
+{
+        Form1->GTimer->Enabled=false;
+        if (OpenDialog1->Execute())
+        {
+                SetCurrentDir(ExtractFilePath(Application->ExeName));
+                LabeledEdit1->Text = StringReplace(ExtractFileName(OpenDialog1->FileName),
+                                                   ".sprite","",TReplaceFlags()<<rfIgnoreCase<<rfReplaceAll);
+                TStringList * l = map.map.GetList("sprites");
+                if (l==0)
+                        map.map.SetList("sprites",new TStringList());
+                String name = LabeledEdit1->Text+IntToStr(::GetTickCount())+IntToStr(random(0xffffff));
+                map.map.AddToList("sprites",name );
+                map.map.Set("sprites."+name+".left", LabeledEdit2->Text);
+                map.map.Set("sprites."+name+".top", LabeledEdit3->Text);
+                map.map.Set("sprites."+name+".sprite", LabeledEdit1->Text+".sprite");
+                map.map.Set("sprites."+name+".animation", LabeledEdit4->Text);
+                if (!CheckBox1->Checked)
+                        map.map.Define("sprites."+name+".dontanimate");
+                ListBox1->Items->Add(LabeledEdit1->Text);
+                map.save("maps\\temp.map", " 1");
+        }
+        Form1->GTimer->Enabled=true;
 }
 //---------------------------------------------------------------------------
 

@@ -162,10 +162,10 @@ void PlayerTank::processMessage(IMessage * msg)
                         else if (msg->super->team != TEAM_PEACEFUL)
                         {
                                 Bullet * b = (Bullet*)msg->super;
-                                hp-=b->getDmg(this,typeResist,valueResist);
                                 UserStats *us = UserStats::getInstance();
-                                us->hp = hp<0?0:hp;
-                                if (hp<0)
+                                us->damage(b->getDmg(this,typeResist,valueResist));
+                                hp = us->hp;
+                                if (hp<=0)
                                 {
                                         manager->sendMessage(IMessage::createHideMeMessage(this, false,false,true));
                                         state = PLAYERTANK_STATE_DEAD;
